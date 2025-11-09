@@ -10,6 +10,7 @@ const FIELD_MAPPINGS: Record<string, string> = {
   $c: 'caughtCount',
   $hc: 'hatchedCount',
   $i: 'ivs',
+  $em: 'eggMoves',
 };
 
 function convertFieldNames(obj: any): any {

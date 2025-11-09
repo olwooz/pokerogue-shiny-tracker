@@ -25,7 +25,7 @@ export type SystemSaveData = {
   dexData: {
     [pokemonId: string]: DexEntry;
   };
-  starterData?: {
+  starterData: {
     [pokemonId: string]: StarterEntry;
   };
 };

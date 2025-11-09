@@ -1,6 +1,6 @@
 import { POKEMON_NAMES } from './pokemon-data';
 
-import { SHINY_BITS, SHINY_VALUES } from '../constants';
+import { ALL_EGG_MOVES, SHINY_BITS, SHINY_VALUES } from '../constants';
 
 import type {
   PokemonShinyStatus,
@@ -15,12 +15,13 @@ export function caughtShinyVariant(caughtAttr: number, bit: number): boolean {
 
 export function parseShinyStatus(
   pokemonId: number,
-  caughtAttr: number
+  caughtAttr: number,
+  eggMoves?: number
 ): Omit<PokemonShinyStatus, 'id' | 'name' | 'caughtAttr'> {
-  const hasRegularShiny =
-    POKEMON_NAMES[pokemonId]?.shiny >= SHINY_VALUES.REGULAR;
-  const hasRareShiny = POKEMON_NAMES[pokemonId]?.shiny >= SHINY_VALUES.RARE;
-  const hasEpicShiny = POKEMON_NAMES[pokemonId]?.shiny >= SHINY_VALUES.EPIC;
+  const pokemonData = POKEMON_NAMES[pokemonId];
+  const hasRegularShiny = pokemonData?.shiny >= SHINY_VALUES.REGULAR;
+  const hasRareShiny = pokemonData?.shiny >= SHINY_VALUES.RARE;
+  const hasEpicShiny = pokemonData?.shiny >= SHINY_VALUES.EPIC;
 
   const caughtRegularShiny = caughtShinyVariant(caughtAttr, SHINY_BITS.REGULAR);
   const caughtRareShiny = caughtShinyVariant(caughtAttr, SHINY_BITS.RARE);
@@ -31,6 +32,10 @@ export function parseShinyStatus(
   if (hasRareShiny && !caughtRareShiny) missingVariants.push('rare');
   if (hasEpicShiny && !caughtEpicShiny) missingVariants.push('epic');
 
+  const isStarter = pokemonData?.isStarter ?? false;
+  const hasMissingEggMoves =
+    isStarter && eggMoves !== undefined && eggMoves < ALL_EGG_MOVES;
+
   return {
     hasRegularShiny,
     hasRareShiny,
@@ -39,6 +44,7 @@ export function parseShinyStatus(
     caughtRareShiny,
     caughtEpicShiny,
     missingVariants,
+    hasMissingEggMoves,
   };
 }
 
@@ -52,9 +58,18 @@ export function analyzeMissingShinies(
     const pokemonId = Number(pokemonIdStr);
     const name = pokemonNames[pokemonId] ?? `Pokemon #${pokemonId}`;
 
-    const shinyStatus = parseShinyStatus(pokemonId, dexEntry.caughtAttr);
+    const eggMoves = saveData.starterData[Number(pokemonIdStr)]?.eggMoves;
 
-    if (shinyStatus.missingVariants.length > 0) {
+    const shinyStatus = parseShinyStatus(
+      pokemonId,
+      dexEntry.caughtAttr,
+      eggMoves
+    );
+
+    if (
+      shinyStatus.missingVariants.length > 0 ||
+      shinyStatus.hasMissingEggMoves
+    ) {
       results.push({
         id: pokemonId,
         name,
@@ -73,14 +88,19 @@ export function getShinyStatistics(saveData: SystemSaveData): Statistics {
   let totalMissingRegular = 0;
   let totalMissingRare = 0;
   let totalMissingEpic = 0;
+  let totalStarters = 0;
+  let totalWithAllEggMoves = 0;
+  let totalMissingEggMoves = 0;
 
   for (const [pokemonId, dexEntry] of Object.entries(saveData.dexData)) {
     if (dexEntry.caughtAttr > 0) {
       totalCaught++;
 
+      const eggMoves = saveData.starterData[Number(pokemonId)]?.eggMoves;
       const shinyStatus = parseShinyStatus(
         Number(pokemonId),
-        dexEntry.caughtAttr
+        dexEntry.caughtAttr,
+        eggMoves
       );
 
       if (shinyStatus.missingVariants.length === 0) {
@@ -93,11 +113,24 @@ export function getShinyStatistics(saveData: SystemSaveData): Statistics {
         totalMissingRare++;
       if (shinyStatus.hasEpicShiny && !shinyStatus.caughtEpicShiny)
         totalMissingEpic++;
+
+      const pokemonData = POKEMON_NAMES[Number(pokemonId)];
+      if (pokemonData.isStarter && eggMoves !== undefined) {
+        totalStarters++;
+        if (eggMoves === 15) {
+          totalWithAllEggMoves++;
+        } else {
+          totalMissingEggMoves++;
+        }
+      }
     }
   }
 
   const completionPercentage =
     totalCaught > 0 ? (totalWithAllShinies / totalCaught) * 100 : 0;
+
+  const eggMovesCompletionPercentage =
+    totalStarters > 0 ? (totalWithAllEggMoves / totalStarters) * 100 : 0;
 
   return {
     totalCaught,
@@ -106,5 +139,9 @@ export function getShinyStatistics(saveData: SystemSaveData): Statistics {
     totalMissingRare,
     totalMissingEpic,
     completionPercentage,
+    totalStarters,
+    totalWithAllEggMoves,
+    totalMissingEggMoves,
+    eggMovesCompletionPercentage,
   };
 }

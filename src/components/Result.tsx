@@ -26,16 +26,16 @@ function Result({ pokemon, statistics }: ResultProps) {
   const filteredPokemon = useMemo(
     () =>
       pokemon.filter((p) => {
-        const matchesTier =
-          filter === FILTER_OPTIONS.ALL ||
-          p.missingVariants.includes(filter as ShinyTier);
-
         const matchesSearch =
           deferredSearchQuery === '' ||
           p.name.toLowerCase().includes(deferredSearchQuery.toLowerCase()) ||
           p.id.toString().includes(deferredSearchQuery);
 
-        return matchesTier && matchesSearch;
+        if (!matchesSearch) return false;
+
+        if (filter === FILTER_OPTIONS.ALL) return true;
+        if (filter === FILTER_OPTIONS.EGG_MOVES) return p.hasMissingEggMoves;
+        return p.missingVariants.includes(filter as ShinyTier);
       }),
     [pokemon, filter, deferredSearchQuery]
   );

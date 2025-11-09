@@ -5,6 +5,7 @@ export interface PokemonData {
   generation: number;
   sprite: string;
   shiny: number;
+  isStarter: boolean;
 }
 
 export const POKEMON_NAMES: Record<number, PokemonData> =

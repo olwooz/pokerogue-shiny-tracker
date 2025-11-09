@@ -41,6 +41,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
     caughtRareShiny,
     hasEpicShiny,
     caughtEpicShiny,
+    hasMissingEggMoves,
   } = pokemon;
 
   const ownedShinies: ShinyTier[] = [];
@@ -90,6 +91,11 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
 
           <div className='space-y-1 mb-3'>
             {renderMissingBadges(missingVariants)}
+            {hasMissingEggMoves && (
+              <span className='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800'>
+                Missing: Egg Moves
+              </span>
+            )}
           </div>
 
           <div className='text-xs text-gray-500'>

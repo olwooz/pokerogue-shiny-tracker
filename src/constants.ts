@@ -58,6 +58,7 @@ export const FILTER_OPTIONS: Record<string, FilterOption> = {
   REGULAR: 'regular',
   RARE: 'rare',
   EPIC: 'epic',
+  EGG_MOVES: 'egg-moves',
 } as const;
 
 export const COLOR_MAP = {
@@ -69,3 +70,6 @@ export const COLOR_MAP = {
 };
 
 export const TOTAL_POKEMON_COUNT = 1082;
+export const TOTAL_STARTER_COUNT = 569;
+
+export const ALL_EGG_MOVES = 15;

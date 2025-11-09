@@ -29,6 +29,12 @@ const FILTER_BUTTONS = [
     active: 'bg-pink-500',
     hover: 'hover:bg-pink-200',
   },
+  {
+    label: 'Egg Moves',
+    value: FILTER_OPTIONS.EGG_MOVES,
+    active: 'bg-gray-600',
+    hover: 'hover:bg-gray-200',
+  },
 ];
 
 interface SearchFilterProps {
