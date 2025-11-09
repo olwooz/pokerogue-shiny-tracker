@@ -17,6 +17,13 @@ export const ERROR_MESSAGES = {
 
 export const INSTRUCTIONS = `To get your save data:
 
+Method A: .prsv file
+1. Open PokeRogue at https://pokerogue.net
+2. Press ESC to open the menu
+3. Select "Manage Data"
+4. Select "Export Data" and save the file
+
+Method B: API response
 1. Open PokeRogue at https://pokerogue.net
 2. Open Developer Tools (Press F12)
 3. Go to the "Network" tab

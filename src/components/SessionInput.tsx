@@ -1,5 +1,6 @@
 import { memo, useCallback, useState } from 'react';
 import { INSTRUCTIONS } from '../constants';
+import FileDropZone from './FileDropZone';
 
 interface SessionInputProps {
   onAnalyze: (saveData: string) => void;
@@ -36,6 +37,10 @@ function SessionInput({ onAnalyze, isLoading, error }: SessionInputProps) {
     setSaveData('');
   }, []);
 
+  const handleFileLoad = useCallback((content: string) => {
+    setSaveData(content);
+  }, []);
+
   return (
     <section className='w-full max-w-2xl mx-auto p-6'>
       <div className='bg-white rounded-lg shadow-lg p-8'>
@@ -49,6 +54,20 @@ function SessionInput({ onAnalyze, isLoading, error }: SessionInputProps) {
         </header>
 
         <form onSubmit={handleSubmit} className='space-y-4'>
+          <FileDropZone
+            onFileLoad={handleFileLoad}
+            isDisabled={isLoading}
+          />
+
+          <div className='relative'>
+            <div className='absolute inset-0 flex items-center'>
+              <div className='w-full border-t border-gray-300'></div>
+            </div>
+            <div className='relative flex justify-center text-sm'>
+              <span className='px-2 bg-white text-gray-500'>or</span>
+            </div>
+          </div>
+
           <div>
             <label
               htmlFor='saveData'
