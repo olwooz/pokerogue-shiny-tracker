@@ -3,6 +3,8 @@
 Track which shiny variants you’re missing in [**PokéRogue**](https://pokerogue.net/)!  
 All data is processed locally in your browser—nothing is sent to any server.
 
+<img width="1114" height="802" alt="image" src="https://github.com/user-attachments/assets/56c75ca9-69c9-4e73-9050-f67fbc860858" />
+
 ## Features
 
 - View your Pokémon collection with missing shiny variants
@@ -23,6 +25,8 @@ pnpm dev
 Open http://localhost:5173 in your browser.
 
 ## Usage
+
+<img width="612" height="836" alt="image" src="https://github.com/user-attachments/assets/f465edb2-80cc-4aec-be19-52e9dbf542b3" />
 
 1. Export your save data from PokéRogue.
 2. Paste your save data in the textarea.
