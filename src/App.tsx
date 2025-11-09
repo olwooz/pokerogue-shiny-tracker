@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next';
+
 import { useLoadSaveData } from './hooks/useLoadSaveData';
 import SessionInput from './components/SessionInput';
 import Result from './components/Result';
@@ -70,6 +72,7 @@ function App() {
       )}
 
       <ScrollUpButton />
+      <Analytics />
     </div>
   );
 }
