@@ -1,4 +1,4 @@
-# Contributing to PokeRogue Shiny Tracker
+# Contributing to PokéRogue Shiny Tracker
 
 Thank you for your interest in contributing!
 

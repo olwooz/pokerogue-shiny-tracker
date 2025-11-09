@@ -46,7 +46,7 @@ function SessionInput({ onAnalyze, isLoading, error }: SessionInputProps) {
       <div className='bg-white rounded-lg shadow-lg p-8'>
         <header className='mb-6'>
           <h1 className='text-3xl font-bold text-gray-900 mb-2'>
-            PokeRogue Shiny Tracker
+            PokéRogue Shiny Tracker
           </h1>
           <p className='text-gray-600'>
             Discover which shiny variants you're still missing in PokeRogue!
@@ -54,10 +54,7 @@ function SessionInput({ onAnalyze, isLoading, error }: SessionInputProps) {
         </header>
 
         <form onSubmit={handleSubmit} className='space-y-4'>
-          <FileDropZone
-            onFileLoad={handleFileLoad}
-            isDisabled={isLoading}
-          />
+          <FileDropZone onFileLoad={handleFileLoad} isDisabled={isLoading} />
 
           <div className='relative'>
             <div className='absolute inset-0 flex items-center'>
