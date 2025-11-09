@@ -12,17 +12,17 @@ const SHINY_TIER_COLORS: Record<
   regular: {
     bg: 'bg-yellow-100',
     text: 'text-yellow-800',
-    label: 'Regular Shiny',
+    label: 'Regular',
   },
   rare: {
     bg: 'bg-sky-100',
     text: 'text-sky-800',
-    label: 'Rare Shiny',
+    label: 'Rare',
   },
   epic: {
     bg: 'bg-pink-100',
     text: 'text-pink-800',
-    label: 'Epic Shiny',
+    label: 'Epic',
   },
 };
 
