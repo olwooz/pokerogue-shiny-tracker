@@ -1,0 +1,114 @@
+import { memo } from 'react';
+
+import { getPokemonSprite } from '../lib/pokemon-data';
+import { SHINY_TIER } from '../constants';
+
+import type { PokemonShinyStatus, ShinyTier } from '../types';
+
+const SHINY_TIER_COLORS: Record<
+  ShinyTier,
+  { bg: string; text: string; label: string }
+> = {
+  regular: {
+    bg: 'bg-yellow-100',
+    text: 'text-yellow-800',
+    label: 'Regular Shiny',
+  },
+  rare: {
+    bg: 'bg-sky-100',
+    text: 'text-sky-800',
+    label: 'Rare Shiny',
+  },
+  epic: {
+    bg: 'bg-pink-100',
+    text: 'text-pink-800',
+    label: 'Epic Shiny',
+  },
+};
+
+interface PokemonCardProps {
+  pokemon: PokemonShinyStatus;
+}
+
+function PokemonCard({ pokemon }: PokemonCardProps) {
+  const {
+    id,
+    name,
+    missingVariants,
+    hasRegularShiny,
+    caughtRegularShiny,
+    hasRareShiny,
+    caughtRareShiny,
+    hasEpicShiny,
+    caughtEpicShiny,
+  } = pokemon;
+
+  const ownedShinies: ShinyTier[] = [];
+  if (hasRegularShiny && caughtRegularShiny)
+    ownedShinies.push(SHINY_TIER.REGULAR);
+  if (hasRareShiny && caughtRareShiny) ownedShinies.push(SHINY_TIER.RARE);
+  if (hasEpicShiny && caughtEpicShiny) ownedShinies.push(SHINY_TIER.EPIC);
+
+  const hasNoOwnedShinies = ownedShinies.length === 0;
+
+  const renderMissingBadges = (tiers: ShinyTier[]) =>
+    tiers.map((tier) => {
+      const color = SHINY_TIER_COLORS[tier];
+      return (
+        <span
+          key={tier}
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${color.bg} ${color.text}`}
+        >
+          Missing: {color.label}
+        </span>
+      );
+    });
+
+  const renderOwnedShinies = () => {
+    if (hasNoOwnedShinies) {
+      return <span className='text-gray-400'>None</span>;
+    }
+
+    return ownedShinies.map((tier) => {
+      const color = SHINY_TIER_COLORS[tier as ShinyTier];
+      return (
+        <span key={tier} className={`${color.text} mr-1`}>
+          {color.label}
+        </span>
+      );
+    });
+  };
+
+  return (
+    <article className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition'>
+      <div className='flex items-start justify-between'>
+        <div className='flex-1'>
+          <header className='flex items-center gap-2 mb-2'>
+            <span className='text-gray-500 font-mono text-sm'>#{id}</span>
+            <h3 className='text-lg font-semibold text-gray-900'>{name}</h3>
+          </header>
+
+          <div className='space-y-1 mb-3'>
+            {renderMissingBadges(missingVariants)}
+          </div>
+
+          <div className='text-xs text-gray-500'>
+            <span>Owned Shinies: </span>
+            {renderOwnedShinies()}
+          </div>
+        </div>
+
+        <div className='w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden'>
+          <img
+            src={getPokemonSprite(id)}
+            alt={`${name} sprite`}
+            className='w-16 h-16 object-contain'
+            loading='lazy'
+          />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default memo(PokemonCard);
