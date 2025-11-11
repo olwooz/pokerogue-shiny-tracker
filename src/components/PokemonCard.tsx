@@ -1,26 +1,29 @@
 import { memo } from 'react';
 
 import { getPokemonSprite } from '../lib/pokemon-data';
-import { SHINY_TIER } from '../constants';
+import { SHINY_TIER, VIEW_MODE } from '../constants';
 
-import type { PokemonShinyStatus, ShinyTier } from '../types';
+import type { PokemonShinyStatus, ShinyTier, ViewMode } from '../types';
 
 const SHINY_TIER_COLORS: Record<
   ShinyTier,
-  { bg: string; text: string; label: string }
+  { bg: string; dot: string; text: string; label: string }
 > = {
   regular: {
     bg: 'bg-yellow-100',
+    dot: 'bg-yellow-400',
     text: 'text-yellow-800',
     label: 'Regular',
   },
   rare: {
     bg: 'bg-sky-100',
+    dot: 'bg-sky-400',
     text: 'text-sky-800',
     label: 'Rare',
   },
   epic: {
     bg: 'bg-pink-100',
+    dot: 'bg-pink-400',
     text: 'text-pink-800',
     label: 'Epic',
   },
@@ -28,9 +31,13 @@ const SHINY_TIER_COLORS: Record<
 
 interface PokemonCardProps {
   pokemon: PokemonShinyStatus;
+  viewMode?: ViewMode;
 }
 
-function PokemonCard({ pokemon }: PokemonCardProps) {
+function PokemonCard({
+  pokemon,
+  viewMode = VIEW_MODE.LARGE,
+}: PokemonCardProps) {
   const {
     id,
     name,
@@ -79,6 +86,42 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
       );
     });
   };
+
+  if (viewMode === VIEW_MODE.SMALL) {
+    return (
+      <article className='w-fit bg-white rounded-lg shadow-md p-3 hover:shadow-lg transition flex flex-col items-center'>
+        <div className='w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden mb-2'>
+          <img
+            src={getPokemonSprite(id)}
+            alt={`${name} sprite`}
+            className='w-20 h-20 object-contain'
+            loading='lazy'
+          />
+        </div>
+
+        <div className='flex gap-1 flex-wrap justify-center'>
+          {missingVariants.map((tier) => {
+            const color = SHINY_TIER_COLORS[tier];
+            return (
+              <div
+                key={tier}
+                className={`w-2 h-2 rounded-full ${color.dot}`}
+                title={`Missing: ${color.label}`}
+                aria-label={`Missing: ${color.label}`}
+              />
+            );
+          })}
+          {hasMissingEggMoves && (
+            <div
+              className='w-2 h-2 rounded-full bg-gray-400'
+              title='Missing: Egg Moves'
+              aria-label='Missing: Egg Moves'
+            />
+          )}
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition'>

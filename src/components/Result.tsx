@@ -3,10 +3,16 @@ import { memo, useDeferredValue, useMemo, useState } from 'react';
 import PokemonCard from './PokemonCard';
 import StatisticsOverview from './StatisticsOverview';
 import SearchFilter from './SearchFilter';
+import ViewModeToggle from './ViewModeToggle';
 
-import { FILTER_OPTIONS, SHINY_TIER } from '../constants';
+import { FILTER_OPTIONS, SHINY_TIER, VIEW_MODE } from '../constants';
 
-import type { FilterOption, PokemonShinyStatus, Statistics } from '../types';
+import type {
+  FilterOption,
+  PokemonShinyStatus,
+  Statistics,
+  ViewMode,
+} from '../types';
 
 interface ResultProps {
   pokemon: PokemonShinyStatus[];
@@ -18,6 +24,7 @@ function Result({ pokemon, statistics }: ResultProps) {
     new Set([FILTER_OPTIONS.ALL])
   );
   const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState<ViewMode>(VIEW_MODE.LARGE);
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
   const filteredPokemon = useMemo(
@@ -64,9 +71,19 @@ function Result({ pokemon, statistics }: ResultProps) {
         totalPokemonCount={pokemon.length}
       />
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+      <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
+
+      <div
+        className={`grid gap-4 ${
+          viewMode === VIEW_MODE.SMALL
+            ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9'
+            : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+        }`}
+      >
         {filteredPokemon.length > 0 ? (
-          filteredPokemon.map((p) => <PokemonCard key={p.id} pokemon={p} />)
+          filteredPokemon.map((p) => (
+            <PokemonCard key={p.id} pokemon={p} viewMode={viewMode} />
+          ))
         ) : (
           <div className='col-span-full text-center py-12 text-gray-500'>
             No Pokemon found matching your filters.

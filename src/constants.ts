@@ -70,6 +70,11 @@ export const COLOR_MAP = {
   pink: { bg: 'bg-pink-50', text: 'text-pink-600' },
 };
 
+export const VIEW_MODE = {
+  SMALL: 'small',
+  LARGE: 'large',
+} as const;
+
 export const TOTAL_POKEMON_COUNT = 1082;
 export const TOTAL_STARTER_COUNT = 569;
 
