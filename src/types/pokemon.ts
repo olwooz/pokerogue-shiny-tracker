@@ -12,4 +12,5 @@ export type PokemonShinyStatus = {
   caughtEpicShiny: boolean;
   missingVariants: ShinyTier[];
   hasMissingEggMoves: boolean;
+  isStarter: boolean;
 };

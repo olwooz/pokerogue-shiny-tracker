@@ -35,6 +35,7 @@ function Result({ pokemon, statistics }: ResultProps) {
 
         if (filter === FILTER_OPTIONS.ALL) return true;
         if (filter === FILTER_OPTIONS.EGG_MOVES) return p.hasMissingEggMoves;
+        if (filter === FILTER_OPTIONS.STARTERS) return p.isStarter;
         return p.missingVariants.includes(filter as ShinyTier);
       }),
     [pokemon, filter, deferredSearchQuery]

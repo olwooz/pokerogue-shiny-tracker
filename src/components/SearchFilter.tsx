@@ -35,6 +35,12 @@ const FILTER_BUTTONS = [
     active: 'bg-gray-600',
     hover: 'hover:bg-gray-200',
   },
+  {
+    label: 'Starters',
+    value: FILTER_OPTIONS.STARTERS,
+    active: 'bg-green-600',
+    hover: 'hover:bg-green-200',
+  },
 ];
 
 interface SearchFilterProps {

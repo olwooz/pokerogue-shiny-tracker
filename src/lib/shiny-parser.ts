@@ -45,6 +45,7 @@ export function parseShinyStatus(
     caughtEpicShiny,
     missingVariants,
     hasMissingEggMoves,
+    isStarter,
   };
 }
 

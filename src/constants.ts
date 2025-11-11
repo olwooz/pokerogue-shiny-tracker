@@ -59,6 +59,7 @@ export const FILTER_OPTIONS: Record<string, FilterOption> = {
   RARE: 'rare',
   EPIC: 'epic',
   EGG_MOVES: 'egg-moves',
+  STARTERS: 'starters',
 } as const;
 
 export const COLOR_MAP = {
