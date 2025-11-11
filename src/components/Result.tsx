@@ -76,7 +76,7 @@ function Result({ pokemon, statistics }: ResultProps) {
       <div
         className={`grid gap-4 ${
           viewMode === VIEW_MODE.SMALL
-            ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-9'
+            ? 'grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-9'
             : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
         }`}
       >
