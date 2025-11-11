@@ -4,14 +4,9 @@ import PokemonCard from './PokemonCard';
 import StatisticsOverview from './StatisticsOverview';
 import SearchFilter from './SearchFilter';
 
-import { FILTER_OPTIONS } from '../constants';
+import { FILTER_OPTIONS, SHINY_TIER } from '../constants';
 
-import type {
-  FilterOption,
-  PokemonShinyStatus,
-  ShinyTier,
-  Statistics,
-} from '../types';
+import type { FilterOption, PokemonShinyStatus, Statistics } from '../types';
 
 interface ResultProps {
   pokemon: PokemonShinyStatus[];
@@ -19,7 +14,9 @@ interface ResultProps {
 }
 
 function Result({ pokemon, statistics }: ResultProps) {
-  const [filter, setFilter] = useState<FilterOption>(FILTER_OPTIONS.ALL);
+  const [filters, setFilters] = useState<Set<FilterOption>>(
+    new Set([FILTER_OPTIONS.ALL])
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
@@ -33,12 +30,25 @@ function Result({ pokemon, statistics }: ResultProps) {
 
         if (!matchesSearch) return false;
 
-        if (filter === FILTER_OPTIONS.ALL) return true;
-        if (filter === FILTER_OPTIONS.EGG_MOVES) return p.hasMissingEggMoves;
-        if (filter === FILTER_OPTIONS.STARTERS) return p.isStarter;
-        return p.missingVariants.includes(filter as ShinyTier);
+        if (filters.has(FILTER_OPTIONS.ALL)) return true;
+
+        if (filters.size === 0) return false;
+
+        const matchesAllFilters = Array.from(filters).every((filter) => {
+          if (filter === FILTER_OPTIONS.REGULAR)
+            return p.missingVariants.includes(SHINY_TIER.REGULAR);
+          if (filter === FILTER_OPTIONS.RARE)
+            return p.missingVariants.includes(SHINY_TIER.RARE);
+          if (filter === FILTER_OPTIONS.EPIC)
+            return p.missingVariants.includes(SHINY_TIER.EPIC);
+          if (filter === FILTER_OPTIONS.EGG_MOVES) return p.hasMissingEggMoves;
+          if (filter === FILTER_OPTIONS.STARTERS) return p.isStarter;
+          return true;
+        });
+
+        return matchesAllFilters;
       }),
-    [pokemon, filter, deferredSearchQuery]
+    [pokemon, filters, deferredSearchQuery]
   );
 
   return (
@@ -48,8 +58,8 @@ function Result({ pokemon, statistics }: ResultProps) {
       <SearchFilter
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        filter={filter}
-        setFilter={setFilter}
+        filters={filters}
+        setFilters={setFilters}
         filteredPokemonCount={filteredPokemon.length}
         totalPokemonCount={pokemon.length}
       />

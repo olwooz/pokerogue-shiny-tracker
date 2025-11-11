@@ -46,8 +46,8 @@ const FILTER_BUTTONS = [
 interface SearchFilterProps {
   searchQuery: string;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  filter: FilterOption;
-  setFilter: React.Dispatch<React.SetStateAction<FilterOption>>;
+  filters: Set<FilterOption>;
+  setFilters: React.Dispatch<React.SetStateAction<Set<FilterOption>>>;
   filteredPokemonCount: number;
   totalPokemonCount: number;
 }
@@ -55,8 +55,8 @@ interface SearchFilterProps {
 function SearchFilter({
   searchQuery,
   setSearchQuery,
-  filter,
-  setFilter,
+  filters,
+  setFilters,
   filteredPokemonCount,
   totalPokemonCount,
 }: SearchFilterProps) {
@@ -67,11 +67,32 @@ function SearchFilter({
     [setSearchQuery]
   );
 
-  const handleFilterChange = useCallback(
+  const handleFilterToggle = useCallback(
     (option: FilterOption) => {
-      setFilter(option);
+      setFilters((prevFilters) => {
+        const newFilters = new Set(prevFilters);
+
+        if (option === FILTER_OPTIONS.ALL) {
+          return new Set([FILTER_OPTIONS.ALL]);
+        }
+
+        if (newFilters.has(FILTER_OPTIONS.ALL)) {
+          newFilters.delete(FILTER_OPTIONS.ALL);
+        }
+
+        if (newFilters.has(option)) {
+          newFilters.delete(option);
+          if (newFilters.size === 0) {
+            newFilters.add(FILTER_OPTIONS.ALL);
+          }
+        } else {
+          newFilters.add(option);
+        }
+
+        return newFilters;
+      });
     },
-    [setFilter]
+    [setFilters]
   );
 
   return (
@@ -89,12 +110,12 @@ function SearchFilter({
 
         <div className='flex flex-wrap gap-2'>
           {FILTER_BUTTONS.map(({ label, value, active, hover }) => {
-            const isActive = filter === value;
+            const isActive = filters.has(value);
             return (
               <button
                 key={value}
-                onClick={() => handleFilterChange(value)}
-                className={`px-4 py-2 rounded-lg font-medium transition 
+                onClick={() => handleFilterToggle(value)}
+                className={`px-4 py-2 rounded-lg font-medium transition
                   ${
                     isActive
                       ? `${active} text-white`
