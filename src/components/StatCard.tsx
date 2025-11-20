@@ -14,11 +14,11 @@ function StatCard({ label, value, total, color }: StatCardProps) {
 
   return (
     <div className={`${bg} rounded-lg p-4`}>
-      <p className='text-sm text-gray-600'>{label}</p>
+      <p className='text-sm text-gray-600 dark:text-gray-400'>{label}</p>
       <p className={`text-3xl font-bold ${text}`}>
         {value}
         {typeof total === 'number' && (
-          <span className='text-gray-500 text-lg font-medium ml-1'>
+          <span className='text-gray-500 dark:text-gray-400 text-lg font-medium ml-1'>
             /{total}
           </span>
         )}

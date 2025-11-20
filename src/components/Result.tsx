@@ -85,7 +85,7 @@ function Result({ pokemon, statistics }: ResultProps) {
             <PokemonCard key={p.id} pokemon={p} viewMode={viewMode} />
           ))
         ) : (
-          <div className='col-span-full text-center py-12 text-gray-500'>
+          <div className='col-span-full text-center py-12 text-gray-500 dark:text-gray-400'>
             No Pokemon found matching your filters.
           </div>
         )}

@@ -74,7 +74,7 @@ function PokemonCard({
 
   const renderOwnedShinies = () => {
     if (hasNoOwnedShinies) {
-      return <span className='text-gray-400'>None</span>;
+      return <span className='text-gray-400 dark:text-gray-500'>None</span>;
     }
 
     return ownedShinies.map((tier) => {
@@ -89,8 +89,8 @@ function PokemonCard({
 
   if (viewMode === VIEW_MODE.SMALL) {
     return (
-      <article className='w-fit bg-white rounded-lg shadow-md p-3 hover:shadow-lg transition flex flex-col items-center'>
-        <div className='w-20 h-20 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden mb-2'>
+      <article className='w-fit bg-white dark:bg-gray-800 rounded-lg shadow-md p-3 hover:shadow-lg transition flex flex-col items-center'>
+        <div className='w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden mb-2'>
           <img
             src={getPokemonSprite(id)}
             alt={`${name} sprite`}
@@ -124,30 +124,30 @@ function PokemonCard({
   }
 
   return (
-    <article className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition'>
+    <article className='bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 hover:shadow-lg transition'>
       <div className='flex items-start justify-between'>
         <div className='flex-1'>
           <header className='flex items-center gap-2 mb-2'>
-            <span className='text-gray-500 font-mono text-sm'>#{id}</span>
-            <h3 className='text-lg font-semibold text-gray-900'>{name}</h3>
+            <span className='text-gray-500 dark:text-gray-400 font-mono text-sm'>#{id}</span>
+            <h3 className='text-lg font-semibold text-gray-900 dark:text-gray-100'>{name}</h3>
           </header>
 
           <div className='space-y-1 mb-3'>
             {renderMissingBadges(missingVariants)}
             {hasMissingEggMoves && (
-              <span className='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800'>
+              <span className='inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'>
                 Missing: Egg Moves
               </span>
             )}
           </div>
 
-          <div className='text-xs text-gray-500'>
+          <div className='text-xs text-gray-500 dark:text-gray-400'>
             <span>Owned Shinies: </span>
             {renderOwnedShinies()}
           </div>
         </div>
 
-        <div className='w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden'>
+        <div className='w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center overflow-hidden'>
           <img
             src={getPokemonSprite(id)}
             alt={`${name} sprite`}

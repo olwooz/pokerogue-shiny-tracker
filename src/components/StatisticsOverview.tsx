@@ -31,8 +31,8 @@ function StatisticsOverview({
   eggMovesCompletionPercentage,
 }: StatisticsOverviewProps) {
   return (
-    <section className='bg-white rounded-lg shadow-lg p-6 mb-6'>
-      <h2 className='text-xl font-bold text-gray-900 mb-4'>
+    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6'>
+      <h2 className='text-xl font-bold text-gray-900 dark:text-gray-100 mb-4'>
         Shiny Collection Statistics
       </h2>
 
@@ -74,9 +74,9 @@ function StatisticsOverview({
         />
       </div>
 
-      <hr className='my-4 border-gray-200' />
+      <hr className='my-4 border-gray-200 dark:border-gray-700' />
 
-      <h3 className='text-xl font-bold text-gray-900 mb-4'>
+      <h3 className='text-xl font-bold text-gray-900 dark:text-gray-100 mb-4'>
         Egg Moves Collection Statistics
       </h3>
 

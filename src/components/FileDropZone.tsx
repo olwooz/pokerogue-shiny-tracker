@@ -74,7 +74,7 @@ function FileDropZone({ onFileLoad, isDisabled = false }: FileDropZoneProps) {
 
   return (
     <div className='mb-4'>
-      <label className='block text-sm font-medium text-gray-700 mb-2'>
+      <label className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2'>
         Upload .prsv File
       </label>
 
@@ -86,13 +86,13 @@ function FileDropZone({ onFileLoad, isDisabled = false }: FileDropZoneProps) {
           relative border-2 border-dashed rounded-lg p-6 text-center transition-all
           ${
             isDragging
-              ? 'border-blue-500 bg-blue-50'
-              : 'border-gray-300 bg-gray-50'
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30'
+              : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700'
           }
           ${
             isDisabled || isProcessing
               ? 'opacity-50 cursor-not-allowed'
-              : 'cursor-pointer hover:border-blue-400 hover:bg-blue-50'
+              : 'cursor-pointer hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
           }
         `}
       >
@@ -107,7 +107,7 @@ function FileDropZone({ onFileLoad, isDisabled = false }: FileDropZoneProps) {
 
         <div className='pointer-events-none'>
           <svg
-            className='mx-auto h-12 w-12 text-gray-400'
+            className='mx-auto h-12 w-12 text-gray-400 dark:text-gray-500'
             stroke='currentColor'
             fill='none'
             viewBox='0 0 48 48'
@@ -122,23 +122,23 @@ function FileDropZone({ onFileLoad, isDisabled = false }: FileDropZoneProps) {
           </svg>
 
           {isProcessing ? (
-            <p className='mt-2 text-sm text-gray-600'>Processing file...</p>
+            <p className='mt-2 text-sm text-gray-600 dark:text-gray-300'>Processing file...</p>
           ) : (
             <>
-              <p className='mt-2 text-sm text-gray-600'>
-                <span className='font-semibold text-blue-600'>
+              <p className='mt-2 text-sm text-gray-600 dark:text-gray-300'>
+                <span className='font-semibold text-blue-600 dark:text-blue-400'>
                   Click to upload
                 </span>{' '}
                 or drag and drop
               </p>
-              <p className='mt-1 text-xs text-gray-500'>.prsv files only</p>
+              <p className='mt-1 text-xs text-gray-500 dark:text-gray-400'>.prsv files only</p>
             </>
           )}
         </div>
       </div>
 
       {fileError && (
-        <div className='mt-2 bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm'>
+        <div className='mt-2 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 px-3 py-2 rounded text-sm'>
           {fileError}
         </div>
       )}

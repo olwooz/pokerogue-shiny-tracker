@@ -21,7 +21,7 @@ function ScrollUpButton() {
   return (
     <button
       onClick={handleScrollToTop}
-      className={`fixed bottom-4 right-4 bg-white text-gray-700 px-4 py-2 rounded-lg shadow hover:shadow-md transition-all font-medium duration-300 ${
+      className={`fixed bottom-4 right-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg shadow hover:shadow-md transition-all font-medium duration-300 ${
         visible
           ? 'opacity-100 pointer-events-auto translate-y-0'
           : 'opacity-0 pointer-events-none translate-y-3'

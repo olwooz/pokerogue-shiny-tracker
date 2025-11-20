@@ -12,7 +12,7 @@ function MissingStat({ label, value, color }: MissingStatProps) {
 
   return (
     <div className='text-center'>
-      <p className='text-sm text-gray-600'>{label}</p>
+      <p className='text-sm text-gray-600 dark:text-gray-400'>{label}</p>
       <p className={`text-2xl font-semibold ${text}`}>{value}</p>
     </div>
   );

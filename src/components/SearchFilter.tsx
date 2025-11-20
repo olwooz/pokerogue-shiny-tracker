@@ -96,7 +96,7 @@ function SearchFilter({
   );
 
   return (
-    <div className='bg-white rounded-lg shadow-lg p-6 mb-6'>
+    <div className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6'>
       <div className='flex flex-col md:flex-row gap-4'>
         <div className='flex-1'>
           <input
@@ -104,7 +104,7 @@ function SearchFilter({
             placeholder='Search by name or ID...'
             value={searchQuery}
             onChange={handleSearchQueryChange}
-            className='w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'
+            className='w-full px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none placeholder:text-gray-400 dark:placeholder:text-gray-500'
           />
         </div>
 
@@ -119,7 +119,7 @@ function SearchFilter({
                   ${
                     isActive
                       ? `${active} text-white`
-                      : `bg-gray-100 text-gray-700 ${hover}`
+                      : `bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 ${hover}`
                   }`}
               >
                 {label}
@@ -129,7 +129,7 @@ function SearchFilter({
         </div>
       </div>
 
-      <p className='mt-2 text-sm text-gray-600'>
+      <p className='mt-2 text-sm text-gray-600 dark:text-gray-400'>
         Showing {filteredPokemonCount} of {totalPokemonCount} Pokémon
       </p>
     </div>

@@ -63,11 +63,11 @@ export const FILTER_OPTIONS: Record<string, FilterOption> = {
 } as const;
 
 export const COLOR_MAP = {
-  blue: { bg: 'bg-blue-50', text: 'text-blue-600' },
-  green: { bg: 'bg-green-50', text: 'text-green-600' },
-  sky: { bg: 'bg-sky-50', text: 'text-sky-600' },
-  yellow: { bg: 'bg-yellow-50', text: 'text-yellow-600' },
-  pink: { bg: 'bg-pink-50', text: 'text-pink-600' },
+  blue: { bg: 'bg-blue-50 dark:bg-blue-950/40', text: 'text-blue-600 dark:text-blue-400' },
+  green: { bg: 'bg-green-50 dark:bg-green-950/40', text: 'text-green-600 dark:text-green-400' },
+  sky: { bg: 'bg-sky-50 dark:bg-sky-950/40', text: 'text-sky-600 dark:text-sky-400' },
+  yellow: { bg: 'bg-yellow-50 dark:bg-yellow-950/40', text: 'text-yellow-600 dark:text-yellow-400' },
+  pink: { bg: 'bg-pink-50 dark:bg-pink-950/40', text: 'text-pink-600 dark:text-pink-400' },
 };
 
 export const VIEW_MODE = {
