@@ -1,8 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
 import { analyzeMissingShinies, getShinyStatistics } from '../lib/shiny-parser';
 import { getPokemonNamesMap } from '../lib/pokemon-data';
 import { APP_STATE, ERROR_MESSAGES } from '../constants';
+import { saveToLocalStorage, loadFromLocalStorage } from '../lib/local-storage';
 
 import type { AppState, Statistics, PokemonShinyStatus } from '../types';
 
@@ -12,6 +13,15 @@ export function useLoadSaveData() {
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<PokemonShinyStatus[]>([]);
   const [statistics, setStatistics] = useState<Statistics | null>(null);
+
+  useEffect(() => {
+    const savedData = loadFromLocalStorage();
+    if (savedData) {
+      setResults(savedData.results);
+      setStatistics(savedData.statistics);
+      setAppState(APP_STATE.RESULTS);
+    }
+  }, []);
 
   const handleAnalyze = useCallback(async (saveDataString: string) => {
     setIsLoading(true);
@@ -40,6 +50,7 @@ export function useLoadSaveData() {
       setResults(missingShinies);
       setStatistics(stats);
       setAppState(APP_STATE.RESULTS);
+      saveToLocalStorage(missingShinies, stats);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);

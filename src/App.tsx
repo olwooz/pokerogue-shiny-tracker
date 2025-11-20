@@ -36,7 +36,7 @@ function App() {
               onClick={handleReset}
               className='bg-white text-gray-700 px-4 py-2 rounded-lg shadow hover:shadow-md transition font-medium'
             >
-              ← Analyze Another Session
+              📥 Update Data
             </button>
           </div>
 
