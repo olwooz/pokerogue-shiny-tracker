@@ -2068,14 +2068,14 @@
     "name": "Makuhita",
     "generation": 3,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/296.png",
-    "shiny": 1,
+    "shiny": 3,
     "isStarter": true
   },
   "297": {
     "name": "Hariyama",
     "generation": 3,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/297.png",
-    "shiny": 1,
+    "shiny": 3,
     "isStarter": false
   },
   "298": {
@@ -5344,7 +5344,7 @@
     "name": "Comfey",
     "generation": 7,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/764.png",
-    "shiny": 1,
+    "shiny": 3,
     "isStarter": true
   },
   "765": {
@@ -5463,7 +5463,7 @@
     "name": "Dhelmise",
     "generation": 7,
     "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/781.png",
-    "shiny": 1,
+    "shiny": 3,
     "isStarter": true
   },
   "782": {
